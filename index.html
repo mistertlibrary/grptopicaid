@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Landmark Lab | English II CPA</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --light: #ecf0f1;
+            --paper: #fdfbf7;
+            --success: #27ae60;
+            --border: #bdc3c7;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f6f8;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h1 { margin: 0; font-family: 'Georgia', serif; letter-spacing: 1px; }
+        h2 { color: var(--primary); border-bottom: 2px solid var(--accent); padding-bottom: 0.5rem; margin-top: 2rem; }
+        .subtitle { font-size: 0.9rem; opacity: 0.8; font-weight: 300; }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* CARD STYLES */
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            transition: transform 0.2s;
+        }
+
+        /* PHASE 1: SLOT MACHINE */
+        .slot-machine {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: stretch;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .reel-container {
+            flex: 1;
+            min-width: 250px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .reel {
+            background: var(--light);
+            border: 3px solid var(--primary);
+            border-radius: 8px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            font-family: 'Georgia', serif;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        button:hover { background: var(--accent); }
+        button.secondary { background: #95a5a6; }
+        button.success { background: var(--success); }
+
+        select {
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            width: 100%;
+        }
+
+        /* PHASE 2 & 3: SCAFFOLDING */
+        .hidden { display: none; }
+        
+        .guidance-box {
+            background: #e8f4f8;
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-family: inherit;
+            box-sizing: border-box; /* Fixes padding issues */
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .radio-option {
+            background: var(--light);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        /* PASSPORT (EXPORT VIEW) */
+        #passport-view {
+            background: var(--paper);
+            border: 1px solid #ddd;
+            padding: 3rem;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .passport-header {
+            border-bottom: 2px solid black;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+        }
+
+        .passport-field {
+            margin-bottom: 1.5rem;
+        }
+        
+        .passport-label {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            color: #555;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .passport-content {
+            font-size: 1.1rem;
+            margin-top: 0.2rem;
+        }
+
+        .research-links {
+            margin-top: 3rem;
+            border-top: 1px dashed #999;
+            padding-top: 1rem;
+            background: #f0f0f0;
+            padding: 1rem;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .link-btn {
+            display: inline-block;
+            background: white;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 0.2rem;
+            font-size: 0.9rem;
+        }
+        .link-btn:hover { background: var(--accent); color: white; }
+
+        /* Animation Classes */
+        .spinning {
+            animation: text-blur 0.1s infinite;
+            color: transparent;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+
+        @keyframes text-blur {
+            0% { transform: translateY(-2px); }
+            50% { transform: translateY(2px); }
+            100% { transform: translateY(-2px); }
+        }
+
+        /* PRINT STYLES - Hides the tool and shows only the passport */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #passport-view, #passport-view * {
+                visibility: visible;
+            }
+            #passport-view {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                border: none;
+                padding: 0;
+                margin: 0;
+            }
+            .research-links {
+                display: none; /* Hide links on print, keep on screen */
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>The Landmark Lab</h1>
+    <div class="subtitle">English II CPA | Event Proposal Engine</div>
+</header>
+
+<div class="container">
+
+    <div id="phase-1" class="card">
+        <h2>Step 1: Discover a Landmark</h2>
+        <p>Spin the reels to find a connection between a major Umbrella Topic and a specific historical event.</p>
+        
+        <div class="slot-machine">
+            <div class="reel-container">
+                <label>Umbrella Topic</label>
+                <div id="reel-topic" class="reel">?</div>
+                <select id="topic-lock">
+                    <option value="">-- Random --</option>
+                    <option value="Gender Roles and Equality">Gender Roles and Equality</option>
+                    <option value="Cultural/Societal Pressures">Cultural/Societal Pressures</option>
+                    <option value="Dehumanization">Dehumanization</option>
+                    <option value="Religious Fundamentalism">Religious Fundamentalism</option>
+                    <option value="Political Propaganda">Political Propaganda</option>
+                    <option value="Violence as Power">Violence as Power</option>
+                </select>
+            </div>
+            
+            <div class="reel-container">
+                <label>Atomic Landmark</label>
+                <div id="reel-event" class="reel">?</div>
+                <div style="text-align: center; font-size: 0.8rem; color: #666; margin-top: 5px;">
+                    Database: 100 Post-2006 Events
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="spin-btn" onclick="spinReels()">SPIN THE ARCHIVES</button>
+            <button id="accept-btn" class="success" onclick="goToPhase2()" disabled>ACCEPT THIS MISSION</button>
+        </div>
+    </div>
+
+    <div id="phase-2" class="card hidden">
+        <h2>Step 2: Validate & Focus</h2>
+        <div class="guidance-box">
+            <strong>Librarian's Note:</strong> A "Landmark" isn't just something that happened. It must be a turning point. Before we research, we must define the nature of this event.
+        </div>
+
+        <div class="input-group">
+            <h3>Selected Event: <span id="display-event-name" style="color:var(--accent)"></span></h3>
+            <p><strong>Topic:</strong> <span id="display-topic-name"></span></p>
+        </div>
+
+        <div class="input-group">
+            <label>1. Student Name:</label>
+            <input type="text" id="student-name-input" placeholder="Enter your full name">
+        </div>
+
+        <div class="input-group">
+            <label>2. How would you classify this landmark?</label>
+            <div class="radio-group">
+                <label class="radio-option"><input type="radio" name="landmarkType" value="Event"> An Event (Specific Occurrence)</label>
+                <label class="radio-option"><input type="radio" name="landmarkType" value="Discovery"> A Discovery (New Knowledge)</label>
+                <label class="radio-option"><input type="radio" name="landmarkType" value="Change"> A Change (Shift in Law/Culture)</label>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>3. Choose your "Aspect" (Inquiry Path)</label>
+            <p style="font-size:0.9rem; margin-top:-5px; color:#666;">Like the Rosa Parks example: Are you looking at the person, the public, or the policy?</p>
+            <div class="radio-group">
+                <label class="radio-option"><input type="radio" name="aspectType" value="Human"> The Human Path (Who led/suffered?)</label>
+                <label class="radio-option"><input type="radio" name="aspectType" value="Reaction"> The Reaction Path (Public/Media response)</label>
+                <label class="radio-option"><input type="radio" name="aspectType" value="Legacy"> The Legacy Path (Long-term laws/changes)</label>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>4. Write your specific Aspect Question:</label>
+            <textarea id="aspect-question" placeholder="Example: What was the immediate public reaction to the 2013 Snowden Leaks?"></textarea>
+        </div>
+
+        <div class="controls">
+            <button class="secondary" onclick="resetTool()">Start Over</button>
+            <button onclick="goToPhase3()">Next: Build Significance</button>
+        </div>
+    </div>
+
+    <div id="phase-3" class="card hidden">
+        <h2>Step 3: Construct the Significance</h2>
+        <div class="guidance-box">
+            <strong>The 4-5 Sentence Requirement:</strong> This section helps you draft the "Significance" paragraph for the PDF. Do not just copy/paste; use your research.
+        </div>
+
+        <div class="input-group">
+            <label>Sentence 1: Definition</label>
+            <div style="font-size:0.8rem; color:#666; margin-bottom:5px;">Briefly describe the event. (Who, what, where?)</div>
+            <textarea id="sent-1" placeholder="The [Event Name] took place in [Year] when..."></textarea>
+        </div>
+
+        <div class="input-group">
+            <label>Sentence 2: Context</label>
+            <div style="font-size:0.8rem; color:#666; margin-bottom:5px;">What was happening in the world just before this?</div>
+            <textarea id="sent-2" placeholder="Prior to this event, the situation regarding [Topic] was..."></textarea>
+        </div>
+
+        <div class="input-group">
+            <label>Sentence 3: The Turning Point</label>
+            <div style="font-size:0.8rem; color:#666; margin-bottom:5px;">What specifically changed because of this moment?</div>
+            <textarea id="sent-3" placeholder="This moment served as a turning point because it..."></textarea>
+        </div>
+
+        <div class="input-group">
+            <label>Sentence 4: Umbrella Connection</label>
+            <div style="font-size:0.8rem; color:#666; margin-bottom:5px;">How is this a clear example of your Umbrella Topic?</div>
+            <textarea id="sent-4" placeholder="This connects to [Umbrella Topic] by demonstrating..."></textarea>
+        </div>
+
+        <div class="input-group">
+            <label>Sentence 5: Why it Matters</label>
+            <div style="font-size:0.8rem; color:#666; margin-bottom:5px;">Why are we still talking about this today?</div>
+            <textarea id="sent-5" placeholder="Ultimately, the legacy of this event is..."></textarea>
+        </div>
+
+        <div class="controls">
+            <button class="secondary" onclick="document.getElementById('phase-2').classList.remove('hidden'); document.getElementById('phase-3').classList.add('hidden');">Back</button>
+            <button class="success" onclick="generatePassport()">Generate Proposal Passport</button>
+        </div>
+    </div>
+
+    <div id="phase-4" class="card hidden">
+        <h2>Your Event Proposal Passport</h2>
+        <p>Review your draft below. You can copy this into your official PDF or print it as a reference.</p>
+        
+        <div id="passport-view">
+            <div class="passport-header">
+                <div style="display:flex; justify-content:space-between;">
+                    <strong>Global Research Project: Event Proposal</strong>
+                    <span>Feb 2026</span>
+                </div>
+                <div>English II CPA | <span id="pp-name"></span></div>
+            </div>
+
+            <div class="passport-field">
+                <div class="passport-label">Selected Umbrella Topic</div>
+                <div class="passport-content" id="pp-topic"></div>
+            </div>
+
+            <div class="passport-field">
+                <div class="passport-label">Name of Event</div>
+                <div class="passport-content" id="pp-event"></div>
+                <div style="font-size: 0.9rem; color:#666;" id="pp-date"></div>
+            </div>
+
+            <div class="passport-field">
+                <div class="passport-label">Aspect of Event (Focus)</div>
+                <div class="passport-content" id="pp-aspect"></div>
+                <div style="font-style:italic; font-size:0.9rem;">Type: <span id="pp-type"></span> | Path: <span id="pp-path"></span></div>
+            </div>
+
+            <div class="passport-field">
+                <div class="passport-label">Significance Statement (Draft)</div>
+                <div class="passport-content" id="pp-paragraph" style="text-align: justify;"></div>
+            </div>
+
+            <div class="research-links">
+                <div class="passport-label">Librarian's Research Launchpad</div>
+                <p>Use these custom links to verify your facts:</p>
+                <div id="link-container"></div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button onclick="window.print()">Print Passport</button>
+            <button onclick="copyPassport()">Copy Text</button>
+            <button class="secondary" onclick="resetTool()">Start New Draft</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // --- THE LANDMARK DATABASE (100 ENTRIES) ---
+    const landmarks = [
+        // Gender Roles
+        { event: "Lilly Ledbetter Fair Pay Act", date: "Jan 2009", topic: "Gender Roles and Equality" },
+        { event: "Repeal of 'Don't Ask, Don't Tell'", date: "Sept 2011", topic: "Gender Roles and Equality" },
+        { event: "Attempted Assassination of Malala", date: "Oct 2012", topic: "Gender Roles and Equality" },
+        { event: "US Military Ban on Women in Combat Lifted", date: "Jan 2013", topic: "Gender Roles and Equality" },
+        { event: "Obergefell v. Hodges (Marriage Equality)", date: "June 2015", topic: "Gender Roles and Equality" },
+        { event: "Saudi Women Vote for First Time", date: "Dec 2015", topic: "Gender Roles and Equality" },
+        { event: "Hillary Clinton Nomination", date: "July 2016", topic: "Gender Roles and Equality" },
+        { event: "Women's March on Washington", date: "Jan 2017", topic: "Gender Roles and Equality" },
+        { event: "#MeToo Movement Goes Viral", date: "Oct 2017", topic: "Gender Roles and Equality" },
+        { event: "Ireland Repeals 8th Amendment", date: "May 2018", topic: "Gender Roles and Equality" },
+        { event: "Saudi Ban on Women Drivers Lifted", date: "June 2018", topic: "Gender Roles and Equality" },
+        { event: "Kamala Harris Inauguration", date: "Jan 2021", topic: "Gender Roles and Equality" },
+        { event: "Dobbs v. Jackson (Roe Overturned)", date: "June 2022", topic: "Gender Roles and Equality" },
+        { event: "Spain 'Se Acabó' Soccer Scandal", date: "Aug 2023", topic: "Gender Roles and Equality" },
+        { event: "France Constitutional Abortion Rights", date: "Jan 2024", topic: "Gender Roles and Equality" },
+        { event: "Harvey Weinstein Conviction", date: "Feb 2020", topic: "Gender Roles and Equality" },
+        { event: "Iceland Equal Pay Law", date: "Jan 2018", topic: "Gender Roles and Equality" },
+
+        // Cultural/Societal Pressures
+        { event: "Launch of First iPhone", date: "June 2007", topic: "Cultural/Societal Pressures" },
+        { event: "Launch of Airbnb", date: "Aug 2008", topic: "Cultural/Societal Pressures" },
+        { event: "Launch of Instagram", date: "Oct 2010", topic: "Cultural/Societal Pressures" },
+        { event: "Occupy Wall Street", date: "Sept 2011", topic: "Cultural/Societal Pressures" },
+        { event: "Curiosity Rover Lands on Mars", date: "Aug 2012", topic: "Cultural/Societal Pressures" },
+        { event: "Publication of DSM-5", date: "May 2013", topic: "Cultural/Societal Pressures" },
+        { event: "Flint Water Crisis Begins", date: "Apr 2014", topic: "Cultural/Societal Pressures" },
+        { event: "Greta Thunberg's School Strike", date: "Aug 2018", topic: "Cultural/Societal Pressures" },
+        { event: "First Image of Black Hole", date: "Apr 2019", topic: "Cultural/Societal Pressures" },
+        { event: "COVID-19 Declared Pandemic", date: "Mar 2020", topic: "Cultural/Societal Pressures" },
+        { event: "Beeple NFT Sale ($69M)", date: "Mar 2021", topic: "Cultural/Societal Pressures" },
+        { event: "Release of ChatGPT", date: "Nov 2022", topic: "Cultural/Societal Pressures" },
+        { event: "Launch of Threads (Social Media)", date: "July 2023", topic: "Cultural/Societal Pressures" },
+        { event: "Neuralink First Human Implant", date: "Jan 2024", topic: "Cultural/Societal Pressures" },
+        { event: "Parasite Wins Best Picture", date: "Feb 2020", topic: "Cultural/Societal Pressures" },
+        { event: "Introduction of GDPR in EU", date: "May 2018", topic: "Cultural/Societal Pressures" },
+        { event: "Facebook Meta Rebranding", date: "Oct 2021", topic: "Cultural/Societal Pressures" },
+
+        // Dehumanization
+        { event: "Shooting of Trayvon Martin", date: "Feb 2012", topic: "Dehumanization" },
+        { event: "Russia 'Gay Propaganda' Law", date: "June 2013", topic: "Dehumanization" },
+        { event: "Yazidi Genocide by ISIS", date: "Aug 2014", topic: "Dehumanization" },
+        { event: "Photo of Alan Kurdi (Refugee Crisis)", date: "Sept 2015", topic: "Dehumanization" },
+        { event: "Pulse Nightclub Shooting", date: "June 2016", topic: "Dehumanization" },
+        { event: "Rohingya Genocide Begins", date: "Aug 2017", topic: "Dehumanization" },
+        { event: "Unite the Right Rally (Charlottesville)", date: "Aug 2017", topic: "Dehumanization" },
+        { event: "US 'Zero Tolerance' Border Policy", date: "May 2018", topic: "Dehumanization" },
+        { event: "Pittsburgh Tree of Life Shooting", date: "Oct 2018", topic: "Dehumanization" },
+        { event: "Death of George Floyd", date: "May 2020", topic: "Dehumanization" },
+        { event: "Kamloops Residential School Graves", date: "May 2021", topic: "Dehumanization" },
+        { event: "Bucha Massacre (Ukraine)", date: "Apr 2022", topic: "Dehumanization" },
+        { event: "Uyghur Human Rights Policy Act", date: "June 2020", topic: "Dehumanization" },
+        { event: "Windrush Scandal (UK)", date: "Apr 2018", topic: "Dehumanization" },
+        { event: "Death of Alexei Navalny", date: "Feb 2024", topic: "Dehumanization" },
+        { event: "Standing Rock Protests", date: "Apr 2016", topic: "Dehumanization" },
+
+        // Religious Fundamentalism
+        { event: "Siege of the Red Mosque (Pakistan)", date: "July 2007", topic: "Religious Fundamentalism" },
+        { event: "Anders Breivik Norway Attacks", date: "July 2011", topic: "Religious Fundamentalism" },
+        { event: "Destruction of Timbuktu Shrines", date: "June 2012", topic: "Religious Fundamentalism" },
+        { event: "Chibok Schoolgirls Kidnapping", date: "Apr 2014", topic: "Religious Fundamentalism" },
+        { event: "Election of Narendra Modi", date: "May 2014", topic: "Religious Fundamentalism" },
+        { event: "Charlie Hebdo Shooting", date: "Jan 2015", topic: "Religious Fundamentalism" },
+        { event: "Battle of Marawi (Philippines)", date: "May 2017", topic: "Religious Fundamentalism" },
+        { event: "Christchurch Mosque Shootings", date: "Mar 2019", topic: "Religious Fundamentalism" },
+        { event: "Taliban Retakes Kabul", date: "Aug 2021", topic: "Religious Fundamentalism" },
+        { event: "Death of Mahsa Amini (Iran)", date: "Sept 2022", topic: "Religious Fundamentalism" },
+        { event: "Kim Davis Marriage License Refusal", date: "Sept 2015", topic: "Religious Fundamentalism" },
+        { event: "Pope Benedict XVI Resignation", date: "Feb 2013", topic: "Religious Fundamentalism" },
+        { event: "Asia Bibi Acquittal", date: "Oct 2018", topic: "Religious Fundamentalism" },
+        { event: "Hagia Sophia Reconversion", date: "July 2020", topic: "Religious Fundamentalism" },
+        { event: "Geert Wilders Election Win", date: "Nov 2023", topic: "Religious Fundamentalism" },
+        { event: "Easter Bombings (Sri Lanka)", date: "Apr 2019", topic: "Religious Fundamentalism" },
+
+        // Political Propaganda
+        { event: "Obama 'Hope' Poster Viral", date: "Nov 2008", topic: "Political Propaganda" },
+        { event: "Citizens United v. FEC", date: "Jan 2010", topic: "Political Propaganda" },
+        { event: "Arab Spring Social Media Use", date: "Jan 2011", topic: "Political Propaganda" },
+        { event: "Kony 2012 Viral Video", date: "Mar 2012", topic: "Political Propaganda" },
+        { event: "Edward Snowden Leaks", date: "June 2013", topic: "Political Propaganda" },
+        { event: "Annexation of Crimea (Disinfo)", date: "Mar 2014", topic: "Political Propaganda" },
+        { event: "Brexit Referendum", date: "June 2016", topic: "Political Propaganda" },
+        { event: "Russian Facebook Interference", date: "Nov 2016", topic: "Political Propaganda" },
+        { event: "'Alternative Facts' Coined", date: "Jan 2017", topic: "Political Propaganda" },
+        { event: "Cambridge Analytica Scandal", date: "Mar 2018", topic: "Political Propaganda" },
+        { event: "Twitter Bans Political Ads", date: "Oct 2019", topic: "Political Propaganda" },
+        { event: "The 'Big Lie' (2020 Election)", date: "Nov 2020", topic: "Political Propaganda" },
+        { event: "Pegasus Spyware Scandal", date: "July 2021", topic: "Political Propaganda" },
+        { event: "Russia 'Fake News' Law", date: "Mar 2022", topic: "Political Propaganda" },
+        { event: "Deepfake Political Ads (UK/US)", date: "Oct 2023", topic: "Political Propaganda" },
+        { event: "Elon Musk Buys Twitter", date: "Oct 2022", topic: "Political Propaganda" },
+        { event: "QAnon Emergence", date: "Oct 2017", topic: "Political Propaganda" },
+
+        // Violence as Power
+        { event: "Mumbai Terror Attacks", date: "Nov 2008", topic: "Violence as Power" },
+        { event: "Killing of Osama bin Laden", date: "May 2011", topic: "Violence as Power" },
+        { event: "Syrian Civil War Begins", date: "Mar 2011", topic: "Violence as Power" },
+        { event: "Sandy Hook Shooting", date: "Dec 2012", topic: "Violence as Power" },
+        { event: "Boston Marathon Bombing", date: "Apr 2013", topic: "Violence as Power" },
+        { event: "Euromaidan Revolution", date: "Feb 2014", topic: "Violence as Power" },
+        { event: "Russian Intervention in Syria", date: "Sept 2015", topic: "Violence as Power" },
+        { event: "Las Vegas Strip Shooting", date: "Oct 2017", topic: "Violence as Power" },
+        { event: "Assassination of Jamal Khashoggi", date: "Oct 2018", topic: "Violence as Power" },
+        { event: "Hong Kong Protests", date: "June 2019", topic: "Violence as Power" },
+        { event: "Assassination of Qasem Soleimani", date: "Jan 2020", topic: "Violence as Power" },
+        { event: "Jan 6th Capitol Riot", date: "Jan 2021", topic: "Violence as Power" },
+        { event: "Myanmar Military Coup", date: "Feb 2021", topic: "Violence as Power" },
+        { event: "Russian Invasion of Ukraine", date: "Feb 2022", topic: "Violence as Power" },
+        { event: "Sudan Civil War Outbreak", date: "Apr 2023", topic: "Violence as Power" },
+        { event: "Iran Attack on Israel", date: "Apr 2024", topic: "Violence as Power" },
+        { event: "Assassination Attempt on Trump", date: "July 2024", topic: "Violence as Power" },
+    ];
+
+    let currentEvent = null;
+
+    // --- PHASE 1: SPIN LOGIC ---
+    function spinReels() {
+        const spinBtn = document.getElementById('spin-btn');
+        const acceptBtn = document.getElementById('accept-btn');
+        const reelTopic = document.getElementById('reel-topic');
+        const reelEvent = document.getElementById('reel-event');
+        const lockSelect = document.getElementById('topic-lock');
+        
+        spinBtn.disabled = true;
+        acceptBtn.disabled = true;
+        reelTopic.classList.add('spinning');
+        reelEvent.classList.add('spinning');
+
+        // Determine Topic
+        let finalTopic = lockSelect.value;
+        if (!finalTopic) {
+            const uniqueTopics = [...new Set(landmarks.map(l => l.topic))];
+            finalTopic = uniqueTopics[Math.floor(Math.random() * uniqueTopics.length)];
+        }
+
+        // Filter events by that topic
+        const possibleEvents = landmarks.filter(l => l.topic === finalTopic);
+        
+        const finalEventObj = possibleEvents.length > 0 
+            ? possibleEvents[Math.floor(Math.random() * possibleEvents.length)]
+            : landmarks[0];
+
+        currentEvent = finalEventObj;
+
+        // Animate Topic Reel
+        let topicCounter = 0;
+        const topicInterval = setInterval(() => {
+            reelTopic.innerText = landmarks[Math.floor(Math.random() * landmarks.length)].topic;
+            topicCounter++;
+            if (topicCounter > 10) {
+                clearInterval(topicInterval);
+                reelTopic.classList.remove('spinning');
+                reelTopic.innerText = finalTopic;
+            }
+        }, 100);
+
+        // Animate Event Reel
+        let eventCounter = 0;
+        const eventInterval = setInterval(() => {
+            reelEvent.innerText = landmarks[Math.floor(Math.random() * landmarks.length)].event;
+            eventCounter++;
+            if (eventCounter > 20) {
+                clearInterval(eventInterval);
+                reelEvent.classList.remove('spinning');
+                reelEvent.innerText = finalEventObj.event;
+                spinBtn.disabled = false;
+                acceptBtn.disabled = false;
+            }
+        }, 80);
+    }
+
+    // --- NAVIGATION ---
+    function goToPhase2() {
+        if (!currentEvent) return;
+        document.getElementById('phase-1').classList.add('hidden');
+        document.getElementById('phase-2').classList.remove('hidden');
+        
+        document.getElementById('display-event-name').innerText = currentEvent.event;
+        document.getElementById('display-topic-name').innerText = currentEvent.topic;
+        window.scrollTo(0,0);
+    }
+
+    function goToPhase3() {
+        // Validation
+        const name = document.getElementById('student-name-input').value;
+        const type = document.querySelector('input[name="landmarkType"]:checked');
+        const aspectType = document.querySelector('input[name="aspectType"]:checked');
+        const question = document.getElementById('aspect-question').value;
+
+        if (!name || name.trim() === "") {
+            alert("Please enter your name.");
+            return;
+        }
+
+        if (!type || !aspectType || question.trim().length < 5) {
+            alert("Please complete the validation: Select a Landmark Type, an Inquiry Path, and draft your Question.");
+            return;
+        }
+
+        document.getElementById('phase-2').classList.add('hidden');
+        document.getElementById('phase-3').classList.remove('hidden');
+        window.scrollTo(0,0);
+    }
+
+    function resetTool() {
+        document.getElementById('phase-4').classList.add('hidden');
+        document.getElementById('phase-2').classList.add('hidden');
+        document.getElementById('phase-3').classList.add('hidden');
+        document.getElementById('phase-1').classList.remove('hidden');
+        
+        // Clear inputs
+        document.querySelectorAll('textarea').forEach(t => t.value = '');
+        document.querySelectorAll('input[type="text"]').forEach(t => t.value = '');
+        document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+        document.getElementById('accept-btn').disabled = true;
+        document.getElementById('reel-topic').innerText = "?";
+        document.getElementById('reel-event').innerText = "?";
+    }
+
+    // --- PHASE 4: GENERATE PASSPORT ---
+    function generatePassport() {
+        const s1 = document.getElementById('sent-1').value;
+        const s3 = document.getElementById('sent-3').value;
+        const s5 = document.getElementById('sent-5').value;
+
+        if(!s1 || !s3 || !s5) {
+            alert("Please fill out at least sentences 1, 3, and 5 to generate a valid proposal.");
+            return;
+        }
+
+        // Populate Passport Fields
+        document.getElementById('pp-topic').innerText = currentEvent.topic;
+        document.getElementById('pp-event').innerText = currentEvent.event;
+        document.getElementById('pp-date').innerText = currentEvent.date;
+        document.getElementById('pp-name').innerText = document.getElementById('student-name-input').value;
+        
+        const aspectType = document.querySelector('input[name="aspectType"]:checked').value;
+        const lType = document.querySelector('input[name="landmarkType"]:checked').value;
+        const question = document.getElementById('aspect-question').value;
+
+        document.getElementById('pp-aspect').innerText = question;
+        document.getElementById('pp-type').innerText = lType;
+        document.getElementById('pp-path').innerText = aspectType;
+
+        // Combine Sentences
+        const paragraph = `${document.getElementById('sent-1').value} ${document.getElementById('sent-2').value} ${document.getElementById('sent-3').value} ${document.getElementById('sent-4').value} ${document.getElementById('sent-5').value}`;
+        document.getElementById('pp-paragraph').innerText = paragraph;
+
+        // Generate Links
+        const container = document.getElementById('link-container');
+        container.innerHTML = '';
+        const query = encodeURIComponent(`${currentEvent.event} significance ${currentEvent.topic}`);
+        
+        const links = [
+            { name: "Pew Research Center", url: `https://www.google.com/search?q=${query}+site:pewresearch.org` },
+            { name: "The Conversation", url: `https://www.google.com/search?q=${query}+site:theconversation.com` },
+            { name: "Britannica", url: `https://www.britannica.com/search?query=${encodeURIComponent(currentEvent.event)}` },
+            { name: "Google Scholar", url: `https://scholar.google.com/scholar?q=${query}` },
+            { name: "BBC News (Context)", url: `https://www.google.com/search?q=${query}+site:bbc.com` }
+        ];
+
+        links.forEach(l => {
+            const a = document.createElement('a');
+            a.href = l.url;
+            a.target = "_blank";
+            a.className = "link-btn";
+            a.innerText = l.name;
+            container.appendChild(a);
+        });
+
+        // Show Phase 4
+        document.getElementById('phase-3').classList.add('hidden');
+        document.getElementById('phase-4').classList.remove('hidden');
+        window.scrollTo(0,0);
+    }
+
+    function copyPassport() {
+        const text = document.getElementById('passport-view').innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            alert("Passport text copied to clipboard!");
+        });
+    }
+
+</script>
+</body>
+</html>
