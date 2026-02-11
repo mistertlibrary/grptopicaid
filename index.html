@@ -958,7 +958,7 @@
         <p style="margin-bottom: 2rem;">A "Landmark" isn't just something that happened. It's a turning point. Your job is to identify <em>which aspect</em> of this turning point you want to investigate.</p>
 
         <div class="research-warning">
-            <strong>Research Required: You cannot vibe your way through this.</strong>
+            <strong>Research required! You cannot vibe your way through this.</strong>
             Open a new tab. Find the facts. Use the recommended sources at the end of this tool to gather preliminary information before proceeding.
         </div>
 
@@ -1205,7 +1205,6 @@
 
         <div class="controls">
             <button onclick="window.print()">Print / Save as PDF</button>
-            <button class="secondary" onclick="exportToNoodleTools()">Export to NoodleTools</button>
             <button class="secondary" onclick="copyToClipboard()">Copy Paragraph</button>
             <button class="secondary" onclick="resetTool()">Start Over</button>
         </div>
@@ -2308,42 +2307,7 @@
             alert('Failed to copy. Please manually select and copy the text.');
         });
     }
-
-    function exportToNoodleTools() {
-        const studentName = document.getElementById('pp-name').innerText;
-        const eventName = currentEvent.event;
-        const eventDate = currentEvent.date;
-        const topic = currentEvent.topic;
-        const sourceProof = document.getElementById('pp-source').innerText;
-        
-        let csv = 'Type,Author,Title,Publication,Date,URL,Notes\n';
-        
-        csv += `Web Page,,"${eventName.replace(/"/g, '""')}",Multiple Sources,${eventDate},,"Research on ${topic}. Investigator: ${studentName}"\n`;
-        
-        if (sourceProof && sourceProof.length > 10) {
-            csv += `Source,,"${sourceProof.replace(/"/g, '""')}",Consulted,2024,,"Primary source consulted"\n`;
-        }
-        
-        csv += 'Database,Multiple Authors,"Research Articles",JSTOR,2024,https://www.jstor.org/,"Academic database"\n';
-        csv += 'Website,,"News Coverage",The New York Times,2024,https://www.nytimes.com/,"News analysis"\n';
-        csv += 'Website,,"News Coverage",The Wall Street Journal,2024,https://www.wsj.com/,"Business news"\n';
-        csv += 'Website,,"Magazine Articles",The Atlantic,2024,https://www.theatlantic.com/,"Long-form journalism"\n';
-        csv += 'Database,,"Reference Articles",Britannica School,2024,https://school.eb.com/,"Encyclopedia"\n';
-        
-        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        const filename = `${eventName.replace(/[^a-z0-9]/gi, '_').substring(0,50)}_NoodleTools.csv`;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-        
-        alert('CSV file downloaded!\n\nImport into NoodleTools:\n1. Log into NoodleTools\n2. Open your project\n3. Click "Import" in Sources\n4. Select "Import from file"\n5. Upload this CSV\n6. Review and edit as needed');
-    }
-
+    
     function resetTool() {
         if (confirm('Are you sure you want to start over? All progress will be lost.')) {
             localStorage.removeItem('eventProposalProgress');
